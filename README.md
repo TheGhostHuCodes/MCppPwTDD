@@ -1,7 +1,7 @@
 Modern C++ Programming With Test Driven Development
 ===================================================
 
-Programming examples from Modern C++ Programming with Test-Driven
+Programming examples from [Modern C++ Programming with Test-Driven
 Development](https://pragprog.com/book/lotdd/modern-c-programming-with-test-driven-development)
 by Jeff Langer.
 
