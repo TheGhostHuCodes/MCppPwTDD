@@ -3,16 +3,17 @@
 class Soundex {
 public:
     std::string encode(const std::string& word) const {
-        return "A";
+        return word;
     }
 };
 
 #include "gmock/gmock.h"
+using ::testing::Eq;
 
 TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord) {
     Soundex soundex;
 
     auto encoded = soundex.encode("A");
 
-    ASSERT_THAT(encoded, testing::Eq("A"));
+    ASSERT_THAT(encoded, Eq("A"));
 }
