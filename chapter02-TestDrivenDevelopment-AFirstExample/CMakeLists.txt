@@ -7,7 +7,7 @@ link_directories($ENV{GMOCK_ROOT}/build $ENV{GMOCK_ROOT}/build/gtest)
 add_definitions(-std=c++0x)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
-set(sources main.cpp SoundexTest.cpp)
+set(sources main.cpp Soundex.h SoundexTest.cpp)
 
 add_executable(test ${sources})
 target_link_libraries(test gmock)
