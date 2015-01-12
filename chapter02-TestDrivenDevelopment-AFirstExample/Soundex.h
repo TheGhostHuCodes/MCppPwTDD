@@ -21,8 +21,15 @@ private:
 
     std::string encodedDigits(const std::string& word) const {
         std::string encoding;
-        for (auto letter: word) encoding += encodedDigit(letter);
+        for (auto letter: word) {
+            if (isComplete(encoding)) break;
+            else encoding += encodedDigit(letter);
+        }
         return encoding;
+    }
+
+    bool isComplete(const std::string& encoding) const {
+        return encoding.length() == maxCodeLength - 1;
     }
 
     std::string encodedDigit(char letter) const {
