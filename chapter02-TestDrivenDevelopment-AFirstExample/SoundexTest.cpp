@@ -35,3 +35,11 @@ TEST_F(SoundexEncoding, LimitsLengthToFourCharacters) {
 TEST_F(SoundexEncoding, IgnoreVowelLikeLetters) {
     ASSERT_THAT(soundex.encode("Baeiouhycdl"), Eq("B234"));
 }
+
+TEST_F(SoundexEncoding, CombinesDuplicateEncodings) {
+    ASSERT_THAT(soundex.encodedDigit('b'), Eq(soundex.encodedDigit('f')));
+    ASSERT_THAT(soundex.encodedDigit('c'), Eq(soundex.encodedDigit('g')));
+    ASSERT_THAT(soundex.encodedDigit('d'), Eq(soundex.encodedDigit('t')));
+
+    ASSERT_THAT(soundex.encode("Abfcgdt"), Eq("A123"));
+}
