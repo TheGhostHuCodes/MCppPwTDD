@@ -20,7 +20,7 @@ public:
             , {'m', "5"} , {'n', "5"}
             , {'r', "6"}
         };
-        auto it = encodings.find(letter);
+        auto it = encodings.find(lower(letter));
         return it == encodings.end() ? NotADigit : it->second;
     }
 
@@ -36,6 +36,10 @@ private:
     std::string upperFront(const std::string& string) const {
         return std::string(1,
                 std::toupper(static_cast<unsigned char>(string.front())));
+    }
+
+    char lower(char ch) const {
+        return std::tolower(static_cast<unsigned char>(ch));
     }
 
     bool isComplete(const std::string& encoding) const {
