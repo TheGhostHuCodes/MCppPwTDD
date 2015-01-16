@@ -4,6 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "CharUtil.h"
+
 class Soundex {
 public:
     std::string encode(const std::string& word) const {
@@ -20,7 +22,7 @@ public:
             , {'m', "5"} , {'n', "5"}
             , {'r', "6"}
         };
-        auto it = encodings.find(lower(letter));
+        auto it = encodings.find(charutil::lower(letter));
         return it == encodings.end() ? NotADigit : it->second;
     }
 
@@ -34,12 +36,7 @@ private:
     }
 
     std::string upperFront(const std::string& string) const {
-        return std::string(1,
-                std::toupper(static_cast<unsigned char>(string.front())));
-    }
-
-    char lower(char ch) const {
-        return std::tolower(static_cast<unsigned char>(ch));
+        return std::string(1, charutil::upper(string.front()));
     }
 
     bool isComplete(const std::string& encoding) const {
@@ -70,13 +67,9 @@ private:
     void encodeLetter(std::string& encoding, char letter, char lastLetter) const {
         auto digit = encodedDigit(letter);
         if (digit != NotADigit
-                && (digit != lastDigit(encoding) || isVowel(lastLetter))) {
+                && (digit != lastDigit(encoding) || charutil::isVowel(lastLetter))) {
             encoding += encodedDigit(letter);
         }
-    }
-
-    bool isVowel(char letter) const {
-        return std::string("aeiouy").find(lower(letter)) != std::string::npos;
     }
 
     std::string lastDigit(const std::string& encoding) const {
