@@ -7,7 +7,7 @@ using namespace std;
 using namespace testing;
 using namespace charutil;
 
-TEST(CharUtil, IsAVowelReturnsTrueForUpperCaseVowels) {
+TEST(AChar, IsAVowelForCharsSixSpecificUpperCaseLetters) {
     ASSERT_TRUE(isVowel('A'));
     ASSERT_TRUE(isVowel('E'));
     ASSERT_TRUE(isVowel('I'));
@@ -16,7 +16,7 @@ TEST(CharUtil, IsAVowelReturnsTrueForUpperCaseVowels) {
     ASSERT_TRUE(isVowel('Y'));
 }
 
-TEST(CharUtil, IsAVowelReturnsTrueForLowerCaseVowels) {
+TEST(AChar, IsAVowelForCharsSixSpecificLowerCaseLetters) {
     ASSERT_TRUE(isVowel('a'));
     ASSERT_TRUE(isVowel('e'));
     ASSERT_TRUE(isVowel('i'));
@@ -25,30 +25,30 @@ TEST(CharUtil, IsAVowelReturnsTrueForLowerCaseVowels) {
     ASSERT_TRUE(isVowel('y'));
 }
 
-TEST(CharUtil, IsAVowelReturnsFalseForConsonants) {
+TEST(AChar, IsNotAVowelIfItIsAConsonant) {
     ASSERT_FALSE(isVowel('b'));
 }
 
-TEST(CharUtil, UpperReturnsUpperCaseCharacter) {
+TEST(AChar, ReturnsUpperCaseCharacter) {
     ASSERT_THAT(upper('a'), Eq('A'));
 }
 
-TEST(CharUtil, UpperReturnsAlreadyUpperCaseCharacter) {
+TEST(AChar, HandlesAlreadyUpperCaseCharacter) {
     ASSERT_THAT(upper('B'), Eq('B'));
 }
 
-TEST(CharUtil, UpperIgnoresNonLetters) {
+TEST(AChar, IgnoresNonLettersWhenUppercasing) {
     ASSERT_THAT(upper('+'), Eq('+'));
 }
 
-TEST(CharUtil, LowerReturnsLowerCaseCharacter) {
+TEST(AChar, ReturnsLowerCaseCharacter) {
     ASSERT_THAT(lower('A'), Eq('a'));
 }
 
-TEST(CharUtil, LowerReturnsAlreadyLowerCaseCharacter) {
+TEST(AChar, HandlesAlreadyLowerCaseCharacter) {
     ASSERT_THAT(lower('b'), Eq('b'));
 }
 
-TEST(CharUtil, LowerIgnoresNonLetters) {
+TEST(AChar, IgnoresNonLettersWhenLowercasing) {
     ASSERT_THAT(lower('+'), Eq('+'));
 }
