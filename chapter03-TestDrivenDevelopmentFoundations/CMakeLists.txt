@@ -7,7 +7,7 @@ link_directories($ENV{GMOCK_ROOT}/build $ENV{GMOCK_ROOT}/build/gtest)
 add_definitions(-std=c++0x)
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
-set(sources main.cpp RetweetCollection.h)
+set(sources main.cpp RetweetCollection.h Tweet.h)
 set(testSources  RetweetCollectionTest.cpp)
 
 add_executable(test ${sources} ${testSources})
