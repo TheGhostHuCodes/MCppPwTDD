@@ -7,6 +7,7 @@ namespace stringutil {
     }
 
     std::string tail(const std::string& word) {
+        if (word.length() == 0) return "";
         return word.substr(1);
     }
     
