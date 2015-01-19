@@ -18,11 +18,11 @@ public:
     }
 
     void add(const Tweet& tweet) {
-        size_ = 1;
+        ++size_;
     }
 
     void remove(const Tweet& tweet) {
-        size_ = 0;
+        --size_;
     }
 
 private:

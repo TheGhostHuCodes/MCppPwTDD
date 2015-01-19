@@ -45,3 +45,12 @@ TEST_F(ARetweetCollection, IsNotEmptyWhenItsSizeIsNonZero) {
     ASSERT_THAT(collection.size(), Gt(0u));
     ASSERT_FALSE(collection.isEmpty());
 }
+
+TEST_F(ARetweetCollection, IncrementsSizeWhenTweetIsAdded) {
+    Tweet first("message1", "@user");
+    collection.add(first);
+    Tweet second("message2", "@user");
+
+    collection.add(second);
+    ASSERT_THAT(collection.size(), Eq(2));
+}
