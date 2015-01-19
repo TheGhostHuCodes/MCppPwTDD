@@ -21,6 +21,10 @@ public:
         size_ = 1;
     }
 
+    void remove(const Tweet& tweet) {
+        size_ = 0;
+    }
+
 private:
     unsigned int size_;
 };
