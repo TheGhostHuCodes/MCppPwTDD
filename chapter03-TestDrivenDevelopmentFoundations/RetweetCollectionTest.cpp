@@ -54,3 +54,13 @@ TEST_F(ARetweetCollection, IncrementsSizeWhenTweetIsAdded) {
     collection.add(second);
     ASSERT_THAT(collection.size(), Eq(2));
 }
+
+TEST_F(ARetweetCollection, IgnoresDuplicateTweetAdded) {
+    Tweet tweet("msg", "@user");
+    Tweet duplicate(tweet);
+    collection.add(tweet);
+
+    collection.add(duplicate);
+
+    ASSERT_THAT(collection.size(), Eq(1u));
+}

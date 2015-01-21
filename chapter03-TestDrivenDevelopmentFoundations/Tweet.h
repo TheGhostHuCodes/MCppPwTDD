@@ -10,6 +10,11 @@ public:
         , user_(user) {
     }
 
+    bool operator<(const Tweet& rhs) const {
+        if (user_ == rhs.user_) return message_ < rhs.message_;
+        else return user_ < rhs.user_;
+    }
+
 private:
     std::string message_;
     std::string user_;
