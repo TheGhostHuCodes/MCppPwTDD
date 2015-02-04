@@ -2,11 +2,20 @@
 #include "RetweetCollection.h"
 #include "Tweet.h"
 
-using namespace testing;
+using namespace ::testing;
 
 class ARetweetCollection: public Test {
 public:
     RetweetCollection collection;
+};
+
+class ARetweetCollectionWithOneTweet: public Test {
+public:
+    RetweetCollection collection;
+    
+    void SetUp() override {
+        collection.add(Tweet());
+    }
 };
 
 MATCHER_P(HasSize, expected, "") {
@@ -22,13 +31,11 @@ TEST_F(ARetweetCollection, HasSizeZeroWhenCreated) {
     ASSERT_THAT(collection.size(), Eq(0u));
 }
 
-TEST_F(ARetweetCollection, IsNoLongerEmptyAfterTweetAdded) {
-    collection.add(Tweet());
+TEST_F(ARetweetCollectionWithOneTweet, IsNotEmpty) {
     ASSERT_FALSE(collection.isEmpty());
 }
 
-TEST_F(ARetweetCollection, DecreasesSizeAfterRemovingTweet) {
-    collection.add(Tweet());
+TEST_F(ARetweetCollectionWithOneTweet, DecreasesSizeAfterRemovingTweet) {
     collection.remove(Tweet());
 
     ASSERT_THAT(collection, HasSize(0u));
@@ -39,9 +46,7 @@ TEST_F(ARetweetCollection, IsEmptyWhenItsSizeIsZero) {
     ASSERT_TRUE(collection.isEmpty());
 }
 
-TEST_F(ARetweetCollection, IsNotEmptyWhenItsSizeIsNonZero) {
-    collection.add(Tweet());
-
+TEST_F(ARetweetCollectionWithOneTweet, IsNotEmptyWhenItsSizeIsNonZero) {
     ASSERT_THAT(collection.size(), Gt(0u));
     ASSERT_FALSE(collection.isEmpty());
 }
