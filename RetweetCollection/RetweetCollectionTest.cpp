@@ -1,3 +1,4 @@
+#include <memory>
 #include "gmock/gmock.h"
 #include "RetweetCollection.h"
 #include "Tweet.h"
@@ -12,9 +13,11 @@ public:
 class ARetweetCollectionWithOneTweet: public Test {
 public:
     RetweetCollection collection;
-    
+    std::shared_ptr<Tweet> tweet;
+
     void SetUp() override {
-        collection.add(Tweet());
+        tweet = std::shared_ptr<Tweet>(new Tweet("msg", "@user"));
+        collection.add(*tweet);
     }
 };
 
@@ -36,7 +39,7 @@ TEST_F(ARetweetCollectionWithOneTweet, IsNotEmpty) {
 }
 
 TEST_F(ARetweetCollectionWithOneTweet, DecreasesSizeAfterRemovingTweet) {
-    collection.remove(Tweet());
+    collection.remove(Tweet("msg", "@user"));
 
     ASSERT_THAT(collection, HasSize(0u));
 }
@@ -57,13 +60,12 @@ TEST_F(ARetweetCollection, IncrementsSizeWhenTweetIsAdded) {
     Tweet second("message2", "@user");
 
     collection.add(second);
+
     ASSERT_THAT(collection.size(), Eq(2));
 }
 
-TEST_F(ARetweetCollection, IgnoresDuplicateTweetAdded) {
-    Tweet tweet("msg", "@user");
-    Tweet duplicate(tweet);
-    collection.add(tweet);
+TEST_F(ARetweetCollectionWithOneTweet, IgnoresDuplicateTweetAdded) {
+    Tweet duplicate(*tweet);
 
     collection.add(duplicate);
 
