@@ -1,16 +1,13 @@
-project(Soundex)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12)
+project(soundex)
 
-include_directories($ENV{GMOCK_ROOT}/include $ENV{GMOCK_ROOT}/gtest/include)
-link_directories($ENV{GMOCK_ROOT}/build $ENV{GMOCK_ROOT}/build/gtest)
+add_definitions("-std=c++14")
 
-add_definitions(-std=c++0x)
-set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
-set(sources main.cpp Soundex.h CharUtil.cpp StringUtil.cpp)
-set(testSources SoundexTest.cpp CharUtilTest.cpp StringUtilTest.cpp)
+set(sources Soundex.h CharUtil.cpp StringUtil.cpp)
+set(test_sources SoundexTest.cpp CharUtil.cpp StringUtilTest.cpp)
 
-add_executable(test ${sources} ${testSources})
-target_link_libraries(test gmock)
-target_link_libraries(test gtest)
-target_link_libraries(test pthread)
+add_executable(test ${sources} ${test_sources})
+target_link_libraries(test ${CONAN_LIBS})
