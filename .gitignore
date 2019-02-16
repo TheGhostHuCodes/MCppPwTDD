@@ -1,3 +1,6 @@
+# Vagrant files and directories
+.vagrant/
+
 # Compiled Object files
 *.slo
 *.lo
