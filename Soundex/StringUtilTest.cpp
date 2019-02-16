@@ -1,9 +1,9 @@
-#include "gmock/gmock.h"
 #include "StringUtil.h"
+#include "gmock/gmock.h"
 
 using namespace std;
 using namespace testing;
-using namespace stringutil;
+using namespace string_util;
 
 TEST(AString, ReturnsItsFirstLetterAsHead) {
     ASSERT_THAT(head("xyz"), Eq("x"));

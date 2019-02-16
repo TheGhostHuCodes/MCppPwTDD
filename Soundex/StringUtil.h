@@ -1,12 +1,10 @@
-#ifndef STRINGUTIL_H
-#define STRINGUTIL_H
+#pragma once
 
 #include <string>
 
-namespace stringutil {
-    std::string head(const std::string& word);
-    std::string tail(const std::string& word);
-    std::string zeroPad(const std::string& text, unsigned int toLength);
-    std::string upperFront(const std::string& string);
-}
-#endif
+namespace string_util {
+std::string head(const std::string& word);
+std::string tail(const std::string& word);
+std::string zero_pad(const std::string& text, unsigned int to_length);
+std::string upper_front(const std::string& string);
+} // namespace string_util

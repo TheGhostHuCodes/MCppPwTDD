@@ -1,9 +1,7 @@
-#ifndef CHARUTIL_H
-#define CHARUTIL_H
+#pragma once
 
-namespace charutil {
-    bool isVowel(char letter);
-    char upper(char ch);
-    char lower(char ch);
-}
-#endif
+namespace char_util {
+bool is_vowel(char letter);
+char upper(char ch);
+char lower(char ch);
+} // namespace char_util

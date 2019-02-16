@@ -1,5 +1,4 @@
-#ifndef SOUNDEX_H
-#define SOUNDEX_H
+#pragma once
 
 #include <string>
 #include <unordered_map>
@@ -8,66 +7,67 @@
 #include "StringUtil.h"
 
 class Soundex {
-public:
+  public:
     std::string encode(const std::string& word) const {
-        auto unpaddedEncoded = stringutil::upperFront(stringutil::head(word))
-            + stringutil::tail(encodedDigits(word));
-        return stringutil::zeroPad(unpaddedEncoded, maxCodeLength);
-    }
+        return string_util::zero_pad(
+            string_util::upper_front(string_util::head(word))
+                + string_util::tail(encoded_digits(word)),
+            MAX_CODE_LENGTH);
+    };
 
-    std::string encodedDigit(char letter) const {
-        const std::unordered_map<char, std::string> encodings {
-            {'b', "1"}, {'f', "1"}, {'p', "1"}, {'v', "1"}
-            , {'c', "2"} , {'g', "2"} , {'j', "2"} , {'k', "2"} , {'q', "2"}
-                         , {'s', "2"} , {'x', "2"} , {'z', "2"}
-            , {'d', "3"} , {'t', "3"}
-            , {'l', "4"}
-            , {'m', "5"} , {'n', "5"}
-            , {'r', "6"}
-        };
-        auto it = encodings.find(charutil::lower(letter));
-        return it == encodings.end() ? NotADigit : it->second;
-    }
-
-private:
-    static const size_t maxCodeLength{4};
-
-    bool isComplete(const std::string& encoding) const {
-        return encoding.length() == maxCodeLength;
-    }
-
-    const std::string NotADigit {"*"};
-
-    std::string encodedDigits(const std::string& word) const {
+    std::string encoded_digits(const std::string& word) const {
         std::string encoding;
-        encodeHead(encoding, word);
-        encodeTail(encoding, word);
+        encode_head(encoding, word);
+        encode_tail(encoding, word);
         return encoding;
     }
 
-    void encodeHead(std::string& encoding, const std::string& word) const {
-        encoding += encodedDigit(word.front());
+    void encode_head(std::string& encoding, const std::string& word) const {
+        encoding += encoded_digit(word.front());
     }
 
-    void encodeTail(std::string& encoding, const std::string& word) const {
-        for (auto i = 1u; i < word.length(); ++i) {
-            if (!isComplete(encoding)) {
-                encodeLetter(encoding, word[i], word[i-1]);
+    void encode_tail(std::string& encoding, const std::string& word) const {
+        for (auto i = 1u; i < word.length(); i++) {
+            if (!is_complete(encoding)) {
+                encode_letter(encoding, word[i], word[i - 1]);
             }
         }
     }
 
-    void encodeLetter(std::string& encoding, char letter, char lastLetter) const {
-        auto digit = encodedDigit(letter);
-        if (digit != NotADigit
-                && (digit != lastDigit(encoding) || charutil::isVowel(lastLetter))) {
-            encoding += encodedDigit(letter);
+    void encode_letter(std::string& encoding, char letter,
+                       char last_letter) const {
+        auto digit = encoded_digit(letter);
+        if (digit != NOT_A_DIGIT
+            && (digit != last_digit(encoding)
+                || char_util::is_vowel(last_letter))) {
+            encoding += digit;
         }
     }
 
-    std::string lastDigit(const std::string& encoding) const {
-        if (encoding.empty()) return NotADigit;
-        else return std::string(1, encoding.back());
+    std::string encoded_digit(char letter) const {
+        const std::unordered_map<char, std::string> encodings{
+            {'b', "1"}, {'f', "1"}, {'p', "1"}, {'v', "1"}, {'c', "2"},
+            {'g', "2"}, {'j', "2"}, {'k', "2"}, {'q', "2"}, {'s', "2"},
+            {'x', "2"}, {'z', "2"}, {'d', "3"}, {'t', "3"}, {'l', "4"},
+            {'m', "5"}, {'n', "5"}, {'r', "6"}};
+
+        auto it = encodings.find(char_util::lower(letter));
+        return it == encodings.end() ? NOT_A_DIGIT : it->second;
+    }
+
+  private:
+    const std::string NOT_A_DIGIT{"*"};
+    static const size_t MAX_CODE_LENGTH{4};
+
+    bool is_complete(const std::string& encoding) const {
+        return encoding.length() == MAX_CODE_LENGTH;
+    }
+
+    std::string last_digit(const std::string& encoding) const {
+        if (encoding.empty()) {
+            return NOT_A_DIGIT;
+        } else {
+            return std::string(1, encoding.back());
+        }
     }
 };
-#endif
