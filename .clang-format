@@ -1,0 +1,8 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+Language: Cpp
+BreakBeforeBinaryOperators: true
+# Force pointers to the type for C-like languages
+DerivePointerAlignment: false
+PointerAlignment: Left
